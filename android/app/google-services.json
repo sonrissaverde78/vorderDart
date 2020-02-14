@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "289017524802",
+    "firebase_url": "https://virtual-order-es.firebaseio.com",
+    "project_id": "virtual-order-es",
+    "storage_bucket": "virtual-order-es.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:289017524802:android:99e56a4e98ab03e1a373db",
+        "android_client_info": {
+          "package_name": "com.virtualorder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "289017524802-1qvjj0lamabrdl6ppe8ao59vu6f8u4au.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.virtualorder",
+            "certificate_hash": "8cb40ba28b8dce87295826e84493e67fb2e816d3"
+          }
+        },
+        {
+          "client_id": "289017524802-p4f544voebtkm9p10a6es99ds60puvrq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALfE-BgIk2nquPDfuXY-5ldRQCRvlGijs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "289017524802-p4f544voebtkm9p10a6es99ds60puvrq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
