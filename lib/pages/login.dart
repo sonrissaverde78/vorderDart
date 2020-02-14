@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
+import 'package:virtualorder_app/pages/home.dart';
 import 'register.dart';
-// import '../pages/shop/homeShop.dart';
-// import '../pages/client/homeClient.dart';
-// import 'package:waitingqueue/model/profile.dart';
+import 'package:virtualorder_app/literals.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 class Login extends StatefulWidget
 {
   String _appName;
@@ -41,7 +42,7 @@ class _LoginPageState extends State<Login>
                 },
                 onSaved: (val)=> _user = val,
                 decoration: InputDecoration(
-                  labelText: "User name"
+                  labelText: Literals.USER_NAME
                 ),
               ),
               TextFormField(
@@ -50,12 +51,12 @@ class _LoginPageState extends State<Login>
                 },
                 onSaved: (val)=> _password = val,
                 decoration: InputDecoration(
-                  labelText: "Password"
+                  labelText: Literals.USER_PASS
                 ),
                 obscureText: true,
                 ),
                 SizedBox(
-                  child: RaisedButton(onPressed: doLogin,child: Text("Sign in")),
+                  child: RaisedButton(onPressed: doLogin,child: Text(Literals.DO_LOGIN)),
                   width: double.infinity,
                 ),        
                 SizedBox(
@@ -67,7 +68,7 @@ class _LoginPageState extends State<Login>
                 width: double.infinity,
                 ),
                 FlatButton (
-                  child: Text("Register as new user"),
+                  child: Text(Literals.REGISTER),
                   onPressed: doRegister,
                   )                   
             ],
@@ -76,16 +77,9 @@ class _LoginPageState extends State<Login>
       ));
   }
 
-// Future<void>_loadMainPage(FirebaseUser user) async{
-//     Profile profile = new Profile(user);
-//     await profile.load(); 
-//     if (profile.isClient == "1"){
-//       Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeClient(user, profile)));
-//     }else{
-//       Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeShop(user, profile)));
-//     }
-    
-// }
+  Future<void>_loadMainPage(FirebaseUser user) async{    
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Home()));  
+  }
 
   Future<void> doLogin() async
   {
@@ -97,10 +91,22 @@ class _LoginPageState extends State<Login>
         AuthResult result  = await _auth.signInWithEmailAndPassword(email: _user, password: _password);
         FirebaseUser user = result.user; 
         print("Email: " + user.email);
-        // await _loadMainPage(user);
+        if (!result.user.isAnonymous){
+          await _loadMainPage(user);
+        }
+          
       }
       catch(e){
           print(e.toString());
+          Fluttertoast.showToast(
+            msg: Literals.WRONG_USER_PASS,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIos: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0
+          );
       }
     }
   }
