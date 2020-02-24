@@ -11,12 +11,14 @@ class Register extends StatefulWidget {
 }
 
 class _Register extends State<Register> {
+  String _address;
   String _name; 
   String _surname;   
   String _pass; 
   String _mail; 
   String _phone; 
   String _isClient;
+
   FirebaseAuth _auth = FirebaseAuth.instance;
   
   final GlobalKey<FormState>_formKey = GlobalKey<FormState>();  
@@ -116,8 +118,8 @@ class _Register extends State<Register> {
 
           if (!authUser.isAnonymous){
             User user = new User();
-            user.init(_name, "", "", _name, _surname, authUser.email, "", _phone, authUser.uid); 
-            Profile profile = new Profile(user);
+            user.init(_address, "", "", authUser.email, _name,   _phone, "", _surname, authUser.uid, "NORMAL USER"); 
+            Profile profile = new Profile(user, null);
             profile.save(); 
           }
             

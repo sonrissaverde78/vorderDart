@@ -4,6 +4,7 @@ import 'package:virtualorder_app/literals.dart';
 import 'login.dart';
 import '../model/user.dart';
 import '../model/profile.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Home extends StatefulWidget{
   
@@ -35,12 +36,54 @@ class _HomePage extends State{
         title: Text(Literals.APP_NAME),
       ),
       drawer: _appMenu(),
-      body: _listLocals(context),
+      //body: _listLocals(context),
+      body: _buildBody(context),
+    );
+  }
+  Widget _buildBody (BuildContext context){
+    return StreamBuilder<QuerySnapshot>(
+    stream:Firestore.instance.collection("users").snapshots(),
+    builder: (context, snapshot){
+      if (!snapshot.hasData) return LinearProgressIndicator();
+      return _buildlist(context, snapshot.data.documents);
+    },
     );
   }
 
+  Widget _buildlist(BuildContext context, List<DocumentSnapshot>snapshot){
+    return ListView(
+      padding: const EdgeInsets.only(top: 20.0),
+      children: snapshot.map((data) => _buildListItem(context, data)).toList(),
+
+    );
+  }
+  Widget _buildListItem (BuildContext context, DocumentSnapshot data){
+
+    final record = Record.fromSnapshot(data);
+
+    return Padding(
+
+      key: ValueKey(record.CIF),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          border:Border.all(color: Colors.grey),
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+
+
+      child: ListTile(
+        title:Text(record.CIF),
+        trailing: Text(record.address),
+        //onTap: () => record.reference.updateData({'votes': FieldValue.increment(1)}),
+       ),
+     )
+    );
+  }
+
+
   Widget _listLocals(BuildContext context){
-    List<Widget> items = List(); 
+    List<Widget> items = List();
     for (int i = 0; i<vLocals.length;i++){
       Card card = Card(
         color:Colors.grey,
@@ -99,5 +142,42 @@ class _HomePage extends State{
 
 }
 
-  
+class Record {
+  final String CIF, address, capacity; //, city, country, email, geolocation, logo, name, postalcode, restaurantname, tel, usertype;
+  final DocumentReference reference;
+
+  Record.fromMap(Map<String, dynamic> map, {this.reference})
+      : assert(map['CIF'] != null),
+        assert(map['address'] != null),
+        assert(map['capacity'] != null),
+  /*
+        assert(map['city'] != null),
+        assert(map['contry'] != null),
+        assert(map['email]'] != null),
+        assert(map['geolocation]'] != null),
+        assert(map['logo]'] != null),
+        assert(map['name]'] != null),
+        assert(map['postalcode]'] != null),
+        assert(map['restaurantname]'] != null),
+        assert(map['tel]'] != null),
+        assert(map['usertype]'] != null),
+  */
+        CIF = map['CIF'],
+        address = map['address'],
+        capacity = map['capacity'];
+
+/*
+      : assert(map['name'] != null),
+        assert(map['votes'] != null),
+        name = map['name'],
+        votes = map['votes'];
+*/
+  Record.fromSnapshot(DocumentSnapshot snapshot)
+      : this.fromMap(snapshot.data, reference: snapshot.reference);
+
+  @override
+  String toString() => "Record<$CIF:$address>";
+}
+
+
 
