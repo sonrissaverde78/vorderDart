@@ -1,16 +1,32 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:virtualorder_app/literals.dart';
 import 'login.dart';
+import '../model/user.dart';
+import '../model/profile.dart';
 
 class Home extends StatefulWidget{
   
+  FirebaseUser _authUser; 
+  User _user; 
+  Home(FirebaseUser user){
+      _authUser = user; 
+       //_user = await Profile.loadProfile(_authUser);
+     
+  }
+
   @override
-  _HomePage createState() => new _HomePage();
+  _HomePage createState() => new _HomePage(_user);
 }
 
 class _HomePage extends State{
   List<String> vLocals = ["Restaurante 1", "Restaurante 2"];
   List<String> vSubs = ["Test Restaurante 1", "Test Restaurante 2"];
+  User _user; 
+
+  _HomePage(User user){
+      _user = user; 
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +72,8 @@ class _HomePage extends State{
       child: ListView(
         children: <Widget>[
           new UserAccountsDrawerHeader(
-            accountName: Text("Test"),
-            accountEmail: Text("mail@mail.com"),
+            accountName: Text("_user.name"),
+            accountEmail: Text("_user.email"),
           ),
           ListTile(
             title: Text("Opción 1"),

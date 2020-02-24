@@ -9,11 +9,10 @@ class User{
   String postalCode; 
   String phone; 
   String type; 
+  String uid; 
 
   
-
-
-  void init (String user, String city, String country, String name, String surname, String email, String postalcode, String phone){
+  void init (String user, String city, String country, String name, String surname, String email, String postalcode, String phone, String uid){
     this.user = user;
     this.city = city; 
     this.country = country; 
@@ -22,7 +21,7 @@ class User{
     this.email = email; 
     this.postalCode = postalcode; 
     this.phone = phone; 
-
+    this.uid = uid; 
   }
 
 

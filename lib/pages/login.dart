@@ -10,6 +10,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 class Login extends StatefulWidget
 {
   String _appName;
+  
   Login(this._appName);
   String get appName =>_appName; 
   _LoginPageState createState() => new _LoginPageState(); 
@@ -78,7 +79,7 @@ class _LoginPageState extends State<Login>
   }
 
   Future<void>_loadMainPage(FirebaseUser user) async{    
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Home()));  
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Home(user)));  
   }
 
   Future<void> doLogin() async
@@ -89,7 +90,7 @@ class _LoginPageState extends State<Login>
       state.save();
       try{
         AuthResult result  = await _auth.signInWithEmailAndPassword(email: _user, password: _password);
-        FirebaseUser user = result.user; 
+        FirebaseUser user = result.user;         
         print("Email: " + user.email);
         if (!result.user.isAnonymous){
           await _loadMainPage(user);
@@ -111,8 +112,7 @@ class _LoginPageState extends State<Login>
     }
   }
   
-  Future<void> doLoginGoogle() async
-  {
+  Future<void> doLoginGoogle() async {
     try{
        GoogleSignInAccount account = await googleSignIn.signIn();
        GoogleSignInAuthentication gAuth = await account.authentication;     
@@ -124,13 +124,10 @@ class _LoginPageState extends State<Login>
     }
     catch(e){
       print("=======>Error ${e.toString()}");
-    }
-    
+    }    
   }
 
-  void doRegister()
-  {
-    Navigator.push(context, MaterialPageRoute( builder: (context)=>Register()));
+  void doRegister(){
+    Navigator.push(context, MaterialPageRoute( builder: (context) => Register()));
   }
-
 }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../model/profile.dart';
 import '../model/user.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:virtualorder_app/literals.dart';
 
 
 class Register extends StatefulWidget {
@@ -31,7 +33,7 @@ class _Register extends State<Register> {
              children: <Widget>[
               TextFormField(            
                 initialValue: "test",
-                validator: (value){                                
+                validator: (value){
                 },                
                 decoration: InputDecoration(              
                   labelText: "Nombre"
@@ -114,13 +116,22 @@ class _Register extends State<Register> {
 
           if (!authUser.isAnonymous){
             User user = new User();
-            user.init(_name, "", "", _name, _surname, authUser.email, "", _phone); 
+            user.init(_name, "", "", _name, _surname, authUser.email, "", _phone, authUser.uid); 
             Profile profile = new Profile(user);
             profile.save(); 
           }
             
         } catch (e) {
           print("===> Registration error: $e");
+           Fluttertoast.showToast(
+            msg: Literals.REGISTRATION_ERROR,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIos: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0
+          );
         }
           
       }
