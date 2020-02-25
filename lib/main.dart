@@ -2,12 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:virtualorder_app/database.dart';
 import 'package:virtualorder_app/pages/home.dart';
 import 'package:virtualorder_app/pages/login.dart';
+import 'package:virtualorder_app/pages/home.dart';
 
 void main(){
+  print("===> main starts");
  runApp(MyApp());
   
   FirebaseDb db = FirebaseDb();
-  db.init();
+
+  db.initUsers();
+  //db.initTestRecords();
+  //db.init();
 }
 
 class MyApp extends StatelessWidget {
@@ -19,7 +24,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+<<<<<<< HEAD
       home: Login("VirtualOrder")   
+=======
+      home: Login("VirtualOrder")
+      // home: Home()
+>>>>>>> 6d0e948cced0ca1ea763205c439bf4065428f6f8
     );
 
    
