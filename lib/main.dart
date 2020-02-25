@@ -23,13 +23,10 @@ class MyApp extends StatelessWidget {
       title: 'VirtualOrder',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-      ),
-<<<<<<< HEAD
-      home: Login("VirtualOrder")   
-=======
+      ),  
       home: Login("VirtualOrder")
       // home: Home()
->>>>>>> 6d0e948cced0ca1ea763205c439bf4065428f6f8
+
     );
 
    
