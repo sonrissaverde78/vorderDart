@@ -31,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:289017524802:ios:a33f541bee50b0b6a373db</string>
+	<string>1:289017524802:ios:9c87174fe6a2e1b9a373db</string>
 	<key>DATABASE_URL</key>
 	<string>https://virtual-order-es.firebaseio.com</string>
 </dict>

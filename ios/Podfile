@@ -1,6 +1,7 @@
 # Uncomment this line to define a global platform for your project
 # platform :ios, '9.0'
 
+
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 
@@ -63,10 +64,13 @@ target 'Runner' do
 
   # Keep pod path relative so it can be checked into Podfile.lock.
   pod 'Flutter', :path => 'Flutter'
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Core'
+  pod 'Firebase/Auth'
 
   # Plugin Pods
 
-  # Prepare symlinks folder. We use symlinks to avoid having Podfile.lock
+  # Prepare symlinks foldelsr. We use symlinks to avoid having Podfile.lock
   # referring to absolute paths on developers' machines.
   system('rm -rf .symlinks')
   system('mkdir -p .symlinks/plugins')

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:virtualorder_app/database.dart';
+import 'package:virtualorder_app/pages/home.dart';
 import 'package:virtualorder_app/pages/login.dart';
 
 void main(){
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Login("VirtualOrder")
+      home: Login("VirtualOrder")   
     );
 
    
