@@ -1,12 +1,12 @@
 class Literals{
-  static String APP_NAME ="VirtualOder";
-  static String USER_NAME ="Nombre de usuario";
-  static String USER_PASS ="Contraseña";
-  static String DO_LOGIN ="Inciar sesión";
-  static String REGISTER ="Registrarse";
-  static String WRONG_USER_PASS ="Usuario o contraseña no válidos";
-  static String CLOSE_SESSION ="Cerrar sesión";
-  static String REGISTRATION_ERROR ="No se ha podido realizar el registro. Compruebe todos los campos";
+  static String appName ="VirtualOder";
+  static String userName ="Nombre de usuario";
+  static String userPass ="Contraseña";
+  static String doLogin ="Inciar sesión";
+  static String register ="Registrarse";
+  static String wrongUserPass ="Usuario o contraseña no válidos";
+  static String closeSession ="Cerrar sesión";
+  static String registrationError ="No se ha podido realizar el registro. Compruebe todos los campos";
 
 
    

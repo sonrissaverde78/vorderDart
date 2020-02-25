@@ -126,7 +126,7 @@ class _Register extends State<Register> {
         } catch (e) {
           print("===> Registration error: $e");
            Fluttertoast.showToast(
-            msg: Literals.REGISTRATION_ERROR,
+            msg: Literals.registrationError,
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIos: 1,

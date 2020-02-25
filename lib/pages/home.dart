@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:virtualorder_app/literals.dart';
 import 'login.dart';
 import '../model/user.dart';
-import '../model/profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Home extends StatefulWidget{
@@ -33,7 +32,7 @@ class _HomePage extends State{
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: Text(Literals.APP_NAME),
+        title: Text(Literals.appName),
       ),
       drawer: _appMenu(),
       //body: _listLocals(context),
@@ -127,7 +126,7 @@ class _HomePage extends State{
             onTap: (){},
           ),
           ListTile(
-            title:Text(Literals.CLOSE_SESSION),
+            title:Text(Literals.closeSession),
             onTap: (){_closeSession();},
 
           )
@@ -136,7 +135,7 @@ class _HomePage extends State{
     );
   }
   void _closeSession(){
-       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Login(Literals.APP_NAME)));  
+       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Login(Literals.appName)));  
   }
 
 

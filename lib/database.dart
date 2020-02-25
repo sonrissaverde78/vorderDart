@@ -18,7 +18,7 @@ class FirebaseDb{
   initTestRecords() {
     print("===> FirebaseDb initTestRecords starts");
     for (int i=0;i<10;i++)
-      RegisterLocalTest(i);
+      registerLocalTest(i);
   }
 
 
@@ -31,7 +31,7 @@ class FirebaseDb{
       });
   }
 
-  Future<void> RegisterLocalTest(int iLocalNumber) async
+  Future<void> registerLocalTest(int iLocalNumber) async
   {
     print("===> FirebaseDb doLocalRegister 2 starts");
     {
@@ -94,7 +94,7 @@ class FirebaseDb{
     } catch (e) {
       print("===> Registration error: $e");
         Fluttertoast.showToast(
-        msg: Literals.REGISTRATION_ERROR,
+        msg: Literals.registrationError,
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIos: 1,

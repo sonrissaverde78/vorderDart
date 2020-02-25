@@ -43,7 +43,7 @@ class _LoginPageState extends State<Login>
                 },
                 onSaved: (val)=> _user = val,
                 decoration: InputDecoration(
-                  labelText: Literals.USER_NAME
+                  labelText: Literals.userName
                 ),
               ),
               TextFormField(
@@ -52,12 +52,12 @@ class _LoginPageState extends State<Login>
                 },
                 onSaved: (val)=> _password = val,
                 decoration: InputDecoration(
-                  labelText: Literals.USER_PASS
+                  labelText: Literals.userPass
                 ),
                 obscureText: true,
                 ),
                 SizedBox(
-                  child: RaisedButton(onPressed: doLogin,child: Text(Literals.DO_LOGIN)),
+                  child: RaisedButton(onPressed: doLogin,child: Text(Literals.doLogin)),
                   width: double.infinity,
                 ),        
                 SizedBox(
@@ -69,7 +69,7 @@ class _LoginPageState extends State<Login>
                 width: double.infinity,
                 ),
                 FlatButton (
-                  child: Text(Literals.REGISTER),
+                  child: Text(Literals.register),
                   onPressed: doRegister,
                   )                   
             ],
@@ -100,7 +100,7 @@ class _LoginPageState extends State<Login>
       catch(e){
           print(e.toString());
           Fluttertoast.showToast(
-            msg: Literals.WRONG_USER_PASS,
+            msg: Literals.wrongUserPass,
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIos: 1,

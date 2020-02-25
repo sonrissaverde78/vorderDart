@@ -1,6 +1,5 @@
 
 import 'package:virtualorder_app/model/user.dart';
-import 'package:flutter/material.dart';
 
 
 class Local extends User{
@@ -15,8 +14,6 @@ class Local extends User{
   String drinks;
   String images;
   String plates;
-
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   initUserDataLocal  (String address, String city,
       String country, String email, String name, String phone,
