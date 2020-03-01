@@ -79,7 +79,7 @@ class _LoginPageState extends State<Login>
   }
 
   Future<void>_loadMainPage(FirebaseUser user) async{    
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Home(user)));  
+        // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Home(user)));  
   }
 
   Future<void> doLogin() async

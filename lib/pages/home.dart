@@ -1,18 +1,22 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:virtualorder_app/literals.dart';
+import 'package:virtualorder_app/testSupport/dbRecordsGenerator.dart';
+import '../database.dart';
 import 'login.dart';
 import '../model/user.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:virtualorder_app/pages/locallist.dart';
+import 'package:virtualorder_app/model/local.dart';
+
 
 class Home extends StatefulWidget{
   
   FirebaseUser _authUser; 
   User _user; 
-  Home(FirebaseUser user){
-      _authUser = user; 
-       //_user = await Profile.loadProfile(_authUser);
-     
+  //Home(FirebaseUser user){
+  Home(){
+          
   }
 
   @override
@@ -35,49 +39,75 @@ class _HomePage extends State{
         title: Text(Literals.appName),
       ),
       drawer: _appMenu(),
-      //body: _listLocals(context),
-      body: _buildBody(context),
+      body: _listLocals2(context),
     );
   }
-  Widget _buildBody (BuildContext context){
-    return StreamBuilder<QuerySnapshot>(
-    stream:Firestore.instance.collection("users").snapshots(),
-    builder: (context, snapshot){
-      if (!snapshot.hasData) return LinearProgressIndicator();
-      return _buildlist(context, snapshot.data.documents);
-    },
+  
+  Widget _listLocals2(BuildContext context){
+    List <Local> localsArray;
+    
+    // Todo read all user documents from
+    // FirebaseDb db = FirebaseDb();
+    /*
+    Future<DocumentSnapshot> result =   db.getUser("1");
+    var then = result.then((doc){
+          var address = doc.data["address"];
+          print("address: $address");
+
+          var city = doc.data["city"];
+          print("city: $city");
+
+          var country = doc.data["country"];
+          print("country: $country");
+          
+          var email = doc.data["email"];
+          print("email: $email");
+
+          var name = doc.data["name"];
+          print("name: $name");
+
+          var phone = doc.data["phone"];
+          print("phone: $phone");
+
+          var postalcode = doc.data["postalcode"];
+          print("postalcode: $postalcode");
+
+          var surname = doc.data["surname"];
+          print("surname: $surname");
+
+          var uid = doc.data["uid"];
+          print("uid: $uid");
+
+          Local local = new Local();
+
+          local.initUserDataLocal(address, city, country, email, name, phone, postalcode, surname, uid)
+          localsArray.add(local);
+          return Local;
+        });
+    
+
+
+    return LocalList (locals: localsArray);
+    */
+
+    return LocalList(
+      locals: <Local>[
+        getLocal(0),
+        getLocal(1),
+        getLocal(2),
+        getLocal(3),
+      ],
     );
   }
 
-  Widget _buildlist(BuildContext context, List<DocumentSnapshot>snapshot){
-    return ListView(
-      padding: const EdgeInsets.only(top: 20.0),
-      children: snapshot.map((data) => _buildListItem(context, data)).toList(),
+  Local getLocal (int iLocalNumber){
 
-    );
-  }
-  Widget _buildListItem (BuildContext context, DocumentSnapshot data){
-
-    final record = Record.fromSnapshot(data);
-
-    return Padding(
-
-      key: ValueKey(record.CIF),
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: Container(
-        decoration: BoxDecoration(
-          border:Border.all(color: Colors.grey),
-          borderRadius: BorderRadius.circular(5.0),
-        ),
-
-
-      child: ListTile(
-        title:Text(record.CIF),
-        trailing: Text(record.address),
-        //onTap: () => record.reference.updateData({'votes': FieldValue.increment(1)}),
-       ),
-     )
-    );
+    DbRecordsGenerator record = DbRecordsGenerator();
+    List<String> localData = record.generateLocal(iLocalNumber);
+    Local local = new Local();
+    local.initUserDataLocal(localData[0], localData[1], localData[2], localData[3], localData[4],
+        localData[5], localData[6], localData[7], localData[8]);
+    return local;
   }
 
 
@@ -100,7 +130,7 @@ class _HomePage extends State{
                       subtitle: Text(vSubs[i]),      
                     ) ,
                   ],
-              )              
+              )
           )               
         ],),
       );      
@@ -140,43 +170,4 @@ class _HomePage extends State{
 
 
 }
-
-class Record {
-  final String CIF, address, capacity; //, city, country, email, geolocation, logo, name, postalcode, restaurantname, tel, usertype;
-  final DocumentReference reference;
-
-  Record.fromMap(Map<String, dynamic> map, {this.reference})
-      : assert(map['CIF'] != null),
-        assert(map['address'] != null),
-        assert(map['capacity'] != null),
-  /*
-        assert(map['city'] != null),
-        assert(map['contry'] != null),
-        assert(map['email]'] != null),
-        assert(map['geolocation]'] != null),
-        assert(map['logo]'] != null),
-        assert(map['name]'] != null),
-        assert(map['postalcode]'] != null),
-        assert(map['restaurantname]'] != null),
-        assert(map['tel]'] != null),
-        assert(map['usertype]'] != null),
-  */
-        CIF = map['CIF'],
-        address = map['address'],
-        capacity = map['capacity'];
-
-/*
-      : assert(map['name'] != null),
-        assert(map['votes'] != null),
-        name = map['name'],
-        votes = map['votes'];
-*/
-  Record.fromSnapshot(DocumentSnapshot snapshot)
-      : this.fromMap(snapshot.data, reference: snapshot.reference);
-
-  @override
-  String toString() => "Record<$CIF:$address>";
-}
-
-
 
