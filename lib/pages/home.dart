@@ -3,10 +3,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:virtualorder_app/literals.dart';
 import 'package:virtualorder_app/testSupport/dbRecordsGenerator.dart';
+import 'package:virtualorder_app/model/userslist.dart';
+
 import '../database.dart';
 import 'login.dart';
 import '../model/user.dart';
-import 'package:virtualorder_app/pages/locallist.dart';
+import 'package:virtualorder_app/pages/localListWidget.dart';
 import 'package:virtualorder_app/model/local.dart';
 
 
@@ -24,8 +26,7 @@ class Home extends StatefulWidget{
 }
 
 class _HomePage extends State{
-  List<String> vLocals = ["Restaurante 1", "Restaurante 2"];
-  List<String> vSubs = ["Test Restaurante 1", "Test Restaurante 2"];
+
   User _user; 
 
   _HomePage(User user){
@@ -43,54 +44,18 @@ class _HomePage extends State{
     );
   }
   
+
   Widget _listLocals2(BuildContext context){
+    
+    // TODO: read all user documents from database.
     List <Local> localsArray;
-    
-    // Todo read all user documents from
-    // FirebaseDb db = FirebaseDb();
-    /*
-    Future<DocumentSnapshot> result =   db.getUser("1");
-    var then = result.then((doc){
-          var address = doc.data["address"];
-          print("address: $address");
+    LocalList.initUsersList(FirebaseDb.getDocumentIdListSnapshot());
+    LocalList.generateDocIdList();
+    localsArray = LocalList.getDocumentIdList();
 
-          var city = doc.data["city"];
-          print("city: $city");
+    return LocalListWidget(locals: localsArray);
 
-          var country = doc.data["country"];
-          print("country: $country");
-          
-          var email = doc.data["email"];
-          print("email: $email");
-
-          var name = doc.data["name"];
-          print("name: $name");
-
-          var phone = doc.data["phone"];
-          print("phone: $phone");
-
-          var postalcode = doc.data["postalcode"];
-          print("postalcode: $postalcode");
-
-          var surname = doc.data["surname"];
-          print("surname: $surname");
-
-          var uid = doc.data["uid"];
-          print("uid: $uid");
-
-          Local local = new Local();
-
-          local.initUserDataLocal(address, city, country, email, name, phone, postalcode, surname, uid)
-          localsArray.add(local);
-          return Local;
-        });
-    
-
-
-    return LocalList (locals: localsArray);
-    */
-
-    return LocalList(
+    return LocalListWidget(
       locals: <Local>[
         getLocal(0),
         getLocal(1),
@@ -98,6 +63,7 @@ class _HomePage extends State{
         getLocal(3),
       ],
     );
+    
   }
 
   Local getLocal (int iLocalNumber){
@@ -110,7 +76,7 @@ class _HomePage extends State{
     return local;
   }
 
-
+/*
   Widget _listLocals(BuildContext context){
     List<Widget> items = List();
     for (int i = 0; i<vLocals.length;i++){
@@ -138,7 +104,7 @@ class _HomePage extends State{
     }
     return ListView(children: items);
   }
-
+*/
   Widget _appMenu(){
     return Drawer(
       child: ListView(

@@ -1,15 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'model/profile.dart';
-
-import 'model/local.dart';
-
-
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:virtualorder_app/model/profile.dart';
-
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:virtualorder_app/literals.dart';
 
 import 'package:virtualorder_app/testSupport/dbRecordsGenerator.dart';
 
@@ -43,7 +34,42 @@ class FirebaseDb{
   
     print("FirebaseDb initUsers starts");
     Future<DocumentSnapshot> result = Firestore.instance.collection("users").document(userDocument).get();
-    return result;
+        return result;
   
+  }
+
+
+  Future<QuerySnapshot> getUsersDocuments()  {
+
+    print("FirebaseDb initUsers starts");
+    Future<QuerySnapshot> result = Firestore.instance.collection("users").getDocuments();
+    return result;
+  }
+
+  static List<DocumentSnapshot> documentId;
+
+  static List<DocumentSnapshot> getDocumentIdListSnapshot (){
+    return documentId;
+  }
+
+  static List<DocumentSnapshot> dbUserIdList(){
+
+    FirebaseDb db = FirebaseDb();
+
+    
+    Future<QuerySnapshot> userDocsId = db.getUsersDocuments();
+    userDocsId.then(
+      (doc){
+        documentId = doc.documents;
+        int totalUsers = documentId.length;
+        print ('Total Users in Firestore:$totalUsers');
+        documentId.asMap().forEach((index, value) {
+          String aux = value.documentID;
+          print ('value : $aux');
+          print ('         '); 
+        });
+      }
+    );
+    return documentId;
   }
 }

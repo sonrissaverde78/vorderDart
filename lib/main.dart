@@ -1,34 +1,40 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:virtualorder_app/database.dart';
 import 'package:virtualorder_app/pages/home.dart';
-import 'package:virtualorder_app/pages/login.dart';
 
-void main(){
+
+import 'package:virtualorder_app/pages/splashScreen.dart';
+
+
+
+void main() {
+
   print("===> main starts");
- runApp(MyApp());
+  runApp(MyApp());
   
-  FirebaseDb db = FirebaseDb();
+  FirebaseDb.dbUserIdList();
 
+  FirebaseDb db = FirebaseDb();
   db.initUsers();
-  //db.initTestRecords();
-  //db.init();
+
 }
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'VirtualOrder',
+    return (new MaterialApp(
+      home: new SplashScreen(),// title: 'VirtualOrder',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),  
       // home: Login("VirtualOrder")
-      home: Home()
-
+      routes: <String, WidgetBuilder>{
+        '/HomeScreen': (BuildContext context) => new Home()
+      },
+    )
     );
-
-   
   }
 }
-

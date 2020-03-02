@@ -15,6 +15,20 @@ class Local extends User{
   String images;
   String plates;
 
+  Local ();
+  Local.init ( String address,   String city,    String country, 
+          String email,     String name,    String phone,  
+          String postalcode,String surname, String uid,  
+          this.cif,         this.capacity,  this.geolocation,  
+          this.localName,  this.logo) 
+          : 
+          super.init ( address,    city,           country, 
+                  email,      name,           phone,  
+                  postalcode, surname,        uid,  
+                  'LOCAL');
+
+
+
   initUserDataLocal  (String address, String city,
       String country, String email, String name, String phone,
       String postalcode, String surname, String uid,
