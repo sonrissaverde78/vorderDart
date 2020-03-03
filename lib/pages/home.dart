@@ -49,12 +49,15 @@ class _HomePage extends State{
     
     // TODO: read all user documents from database.
     List <Local> localsArray;
-    LocalList.initUsersList(FirebaseDb.getDocumentIdListSnapshot());
-    LocalList.generateDocIdList();
-    localsArray = LocalList.getDocumentIdList();
+    LocalList.initLocalsList(FirebaseDb.getlocalListSnapshot());
+    LocalList.generateLocalList();
+    localsArray = LocalList.getLocalList();
+    // LocalList.initUsersList(FirebaseDb.getDocumentIdListSnapshot());
+    // LocalList.generateDocIdList();
+    
 
     return LocalListWidget(locals: localsArray);
-
+/*
     return LocalListWidget(
       locals: <Local>[
         getLocal(0),
@@ -63,7 +66,7 @@ class _HomePage extends State{
         getLocal(3),
       ],
     );
-    
+*/
   }
 
   Local getLocal (int iLocalNumber){

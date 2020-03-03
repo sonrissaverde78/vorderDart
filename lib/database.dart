@@ -72,4 +72,24 @@ class FirebaseDb{
     );
     return documentId;
   }
+
+
+  static List<DocumentSnapshot> localList;
+
+  static List<DocumentSnapshot> getlocalListSnapshot (){
+    return localList;
+  }
+
+  static void dbLocalList (){
+    Firestore.instance.collection('users').where("usertype", isEqualTo: "LOCAL")
+    .snapshots()
+    .listen((data) {
+        localList = data.documents;
+        data.documents.forEach((doc) { 
+          print("name *********** "+doc["name"]);
+          }
+        );
+      }
+    );
+  }
 }

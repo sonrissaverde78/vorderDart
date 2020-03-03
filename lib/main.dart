@@ -13,9 +13,8 @@ void main() {
 
   print("===> main starts");
   runApp(MyApp());
-  
+  FirebaseDb.dbLocalList();
   FirebaseDb.dbUserIdList();
-
   FirebaseDb db = FirebaseDb();
   db.initUsers();
 
