@@ -5,6 +5,8 @@ import '../model/user.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:virtualorder_app/literals.dart';
 
+import 'home.dart';
+
 
 class Register extends StatefulWidget {
   _Register createState() => _Register();
@@ -121,6 +123,7 @@ class _Register extends State<Register> {
             user.init(_address, "", "", authUser.email, _name,   _phone, "", _surname, authUser.uid, "NORMAL USER"); 
             Profile profile = new Profile(user, null);
             profile.save(); 
+            Home(authUser);
           }
             
         } catch (e) {

@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       ),  
       // home: Login("VirtualOrder")
       routes: <String, WidgetBuilder>{
-        '/HomeScreen': (BuildContext context) => new Home()
+        '/HomeScreen': (BuildContext context) => new Home(null)
       },
     )
     );

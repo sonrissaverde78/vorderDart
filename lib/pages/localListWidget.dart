@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:virtualorder_app/model/local.dart';
 
+import 'localDetails.dart';
+
+
 class LocalListWidget extends StatefulWidget{
 
   LocalListWidget ({Key key, this.locals}) : super(key: key);
@@ -16,21 +19,20 @@ class LocalListWidget extends StatefulWidget{
 
 class _LocalListWidgetState extends State<LocalListWidget> {
   Set<Local> _localCart = Set<Local>();
-  
+
   @override  
   void initState() {
     // state to configure animations or platforms subscritpions.
     super.initState();
   }
 
-  void _handleCartChanged (Local locals, bool inCart){
-  setState((){
-
-      if (!inCart)
-        _localCart.add(locals);
-      else
-        _localCart.remove(locals);
-    });
+  void _handleCartChanged (Local local, bool inCart){
+    //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LocalDetails()));  
+    //Navigator.of(context).push(MaterialPageRoute(builder: (context)=>LocalDetails()));
+    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LocalDetails(local)),
+                    );
   }
 
   @override
@@ -77,7 +79,9 @@ class LocalListItem extends StatelessWidget{
   Widget build(BuildContext context){
     return ListTile(
       onTap:(){
+        
         onCartChanged(product, inCart);
+        //RandomWords();
       },
       leading: CircleAvatar(
         backgroundColor: _getColor(context),
@@ -85,5 +89,8 @@ class LocalListItem extends StatelessWidget{
       ),
       title: Text(product.name, style: _getTextStyle(context)),
     );
+    
   }
+
 }
+

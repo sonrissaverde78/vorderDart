@@ -26,7 +26,19 @@ class LocalList {
     localListSnapshot.forEach((doc) { 
       print("name *********** "+doc["name"]);
         var local = new Local();
+        local.address = doc["address"];
+        local.city = doc["city"];
+        local.country = doc["country"];
+        local.email = doc["email"];
         local.name = doc["name"];
+        local.phone = doc["phone"];
+        local.postalCode = doc["postalcode"];
+        local.surname = doc["surname"];
+        local.cif = doc["cif"];
+        local.capacity = doc["capacity"];
+        local.geolocation = doc["geolocation"];
+        local.localName = doc["localName"];
+        local.logo = doc["logo"];
         localList.add(local);
       }
     );

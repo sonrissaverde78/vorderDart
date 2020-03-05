@@ -12,20 +12,34 @@ import 'package:virtualorder_app/pages/localListWidget.dart';
 import 'package:virtualorder_app/model/local.dart';
 
 
-class Home extends StatefulWidget{
+class Home extends StatefulWidget {
   
   FirebaseUser _authUser; 
   User _user; 
-  //Home(FirebaseUser user){
-  Home(){
-          
+
+  Home(FirebaseUser authUser){
+       _user = new User();
+
+       if (authUser != null){
+        this._authUser = authUser;
+        this._user.email = 'Usuario: '+authUser.email;
+        if (authUser.displayName != null)
+          this._user.name = 'Nombre: '+ authUser.displayName; 
+        else
+          this._user.name = ''; 
+       }
+       else{
+        this._user.email = 'anonimo@anon.free';
+        this._user.name = 'Anonimo';
+       }
+
   }
 
   @override
-  _HomePage createState() => new _HomePage(_user);
+  _HomePage createState() => new _HomePage(this._user);
 }
 
-class _HomePage extends State{
+class _HomePage extends State<Home>{
 
   User _user; 
 
@@ -47,28 +61,16 @@ class _HomePage extends State{
 
   Widget _listLocals2(BuildContext context){
     
-    // TODO: read all user documents from database.
     List <Local> localsArray;
     LocalList.initLocalsList(FirebaseDb.getlocalListSnapshot());
     LocalList.generateLocalList();
     localsArray = LocalList.getLocalList();
-    // LocalList.initUsersList(FirebaseDb.getDocumentIdListSnapshot());
-    // LocalList.generateDocIdList();
-    
 
     return LocalListWidget(locals: localsArray);
-/*
-    return LocalListWidget(
-      locals: <Local>[
-        getLocal(0),
-        getLocal(1),
-        getLocal(2),
-        getLocal(3),
-      ],
-    );
-*/
+
   }
 
+  // generate a test record.
   Local getLocal (int iLocalNumber){
 
     DbRecordsGenerator record = DbRecordsGenerator();
@@ -79,50 +81,21 @@ class _HomePage extends State{
     return local;
   }
 
-/*
-  Widget _listLocals(BuildContext context){
-    List<Widget> items = List();
-    for (int i = 0; i<vLocals.length;i++){
-      Card card = Card(
-        color:Colors.grey,
-        child: Column(children: <Widget>[
-          new Container(
-            padding: const EdgeInsets.all(8.0),
-            width: 150,
-            height: 150,
-            child: Image.network("https://i.pinimg.com/474x/6a/d8/19/6ad819137caff58f0600c52395c3304d.jpg")),        
-            new Container(            
-              child:  Column(
-                  children: <Widget>[
-                    ListTile(
-                      title: Text(vLocals[i]),
-                      subtitle: Text(vSubs[i]),      
-                    ) ,
-                  ],
-              )
-          )               
-        ],),
-      );      
-      items.add(card);
-    }
-    return ListView(children: items);
-  }
-*/
   Widget _appMenu(){
     return Drawer(
       child: ListView(
         children: <Widget>[
           new UserAccountsDrawerHeader(
-            accountName: Text("_user.name"),
-            accountEmail: Text("_user.email"),
+            accountName: Text(_user.name),
+            accountEmail: Text(_user.email),
           ),
           ListTile(
-            title: Text("Opción 1"),
+            title: Text(Literals.options),
             onTap: (){},
           ),
           ListTile(
-            title: Text("Opción 2"),
-            onTap: (){},
+            title: Text(Literals.doLogin),
+            onTap: (){_login();},
           ),
           ListTile(
             title:Text(Literals.closeSession),
@@ -137,6 +110,13 @@ class _HomePage extends State{
        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Login(Literals.appName)));  
   }
 
+ void _login(){
+       //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Login(Literals.appName)));  
+           Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Login(Literals.appName)),
+                    );
+  }
 
 }
 

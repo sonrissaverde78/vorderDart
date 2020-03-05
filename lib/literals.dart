@@ -6,7 +6,9 @@ class Literals{
   static String register ="Registrarse";
   static String wrongUserPass ="Usuario o contraseña no válidos";
   static String closeSession ="Cerrar sesión";
+  static String signIn ="Ingresar";
   static String registrationError ="No se ha podido realizar el registro. Compruebe todos los campos";
+  static String options ="Opciones";
 
 
    

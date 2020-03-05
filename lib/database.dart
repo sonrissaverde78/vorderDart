@@ -19,7 +19,7 @@ class FirebaseDb{
     Future<DocumentSnapshot> result = getUser("7l62RDjEaQJzbjN0SVY6");
     result.then((doc){
           var name = doc.data["name"];
-          print("capacity: $name");
+          print("name: $name");
 
           var capacity = doc.data["capacity"];
           print("capacity: $capacity");

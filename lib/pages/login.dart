@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
-import 'package:virtualorder_app/pages/home.dart';
+
+import 'home.dart';
 import 'register.dart';
 import 'package:virtualorder_app/literals.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -79,7 +80,7 @@ class _LoginPageState extends State<Login>
   }
 
   Future<void>_loadMainPage(FirebaseUser user) async{    
-        // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Home(user)));  
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Home(user)));  
   }
 
   Future<void> doLogin() async
